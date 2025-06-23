@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 @Entity
 @Table(name = "empresa")
 public class Empresa implements Serializable {
@@ -27,23 +28,25 @@ public class Empresa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nome_fantasia")
+	@Column(name = "nome_fantasia", nullable = false, length = 80)
 	private String nomeFantasia;
 	
-	@Column(name = "razao_social")
+	@Column(name = "razao_social", nullable = false, length = 120)
 	private String razaoSocial;
 	
+	@Column(nullable = false, length = 120)
 	private String cnpj;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_fundacao")
 	private Date dataFundacao;
 	
 	@ManyToOne // muitas empresas para um Ramo de Atividade
-	@JoinColumn(name = "ramo_atividade_id")
+	@JoinColumn(name = "ramo_atividade_id", nullable = false)
 	private RamoAtividade ramoAtividade;
 	
 	@Enumerated(EnumType.STRING) // usado para enums
+	@Column(nullable = false, length = 30)
 	private TipoEmpresa tipo;
 
 	public Long getId() {
